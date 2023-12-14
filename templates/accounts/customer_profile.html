@@ -1,0 +1,7 @@
+<h1>{{ request.user.username }}</h1>
+<p>{{ request.user.roll }}</p>
+
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">logout</button>
+</form>
