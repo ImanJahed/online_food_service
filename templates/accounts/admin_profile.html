@@ -1,10 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>{{ request.user.username }}</h1>
-</body>
-</html>
+{% extends "_base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+		<!-- Main Section Start -->
+		<div class="main-section">
+{
+            <div class="page-section restaurant-detail-image-section" style=" background: url({% if vendor.user_profile.cover_photo %} {{ vendor.user_profile.cover_photo.url }} {% else %} {% static 'images/default-cover.png' %}{% endif %}) no-repeat scroll 0 0 / cover;">
+    <!-- Container Start -->
+    <div class="container">
+        <!-- Row Start -->
+        <div class="row">
+            <!-- Column Start -->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="company-info-detail">
+                    <div class="company-info">
+                        <div class="img-holder">
+                            <figure>
+                                <img src="{% static 'images/default-profile.png' %}" alt="">
+                            </figure>
+                        </div>
+
+                        <div class="text-holder">
+                            <span class="restaurant-title">{{request.user.username}}</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column End -->
+        </div>
+        <!-- Row End -->
+    </div>
+    <!-- Container End -->
+</div>
+            <div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+
+                        {% include "includes/admin_sidbar.html" %}
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="row">
+											<div class="element-title has-border right-filters-row">
+												<h5>Recent Orders</h5>
+												<div class="right-filters row pull-right">
+													<div class="col-lg-6 col-md-6 col-xs-6">
+														<div class="input-field">
+															<select class="chosen-select-no-single">
+																<option selected="selected" value="">Select Orders Status</option>
+																<option value="Processing">Processing</option>
+																<option value="Cancelled">Cancelled</option>
+																<option value="Completed">Completed</option>
+															</select>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<div class="user-orders-list">
+												<div class="responsive-table">
+													<ul class="table-generic">
+														<li class="order-heading-titles">
+															<div>Order id</div>
+															<div>Date</div>
+															<div>Total Price</div>
+															<div>Charges</div>
+															<div>Received</div>
+															<div>Status</div>
+														</li>
+
+                                                        {% for transaction in transactions %}
+														<li class="order-heading-titles">
+															<div><a href="#" data-toggle="modal" data-target="#order-det-22606">{{ transaction.order.order_id }}</a></div>
+															<div>{{ transaction.created|date:'Y-m-d'}}</div>
+															<div>{{transaction.total_order}}</div>
+															<div>{{transaction.admin_share}}</div>
+															<div>{{transaction.restaurant_share}}</div>
+															<div><span class="order-status" style="background-color: #047a06;">{{ transaction.order.status }}</span></div>
+														</li>
+                                                        {% endfor %}
+
+
+													</ul>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Main Section End -->
+
+{% endblock content %}
+

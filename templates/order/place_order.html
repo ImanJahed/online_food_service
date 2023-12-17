@@ -1,0 +1,118 @@
+{% extends "_base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- Main Section Start -->
+<div class="main-section pt-5">
+    <div class="page-section">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    <div class="tabs-holder horizontal">
+                        <ul class="stickynav-tabs nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-shopping-cart text-danger"></i>Review Your Billing Address</a></li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane in active">
+                                <div class="menu-itam-holder">
+
+                                    <div id="menu-item-list-6272" class="menu-itam-list">
+
+                                        <div class="billing-address">
+                                            <div><b>{{ food.food_title }}</b></div>
+                                            <div class="">Address: {{ request.user.customer.address }}</div>
+
+                                            <br>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Your order section -->
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="tabs-holder horizontal">
+                        <ul class="stickynav-tabs nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Your Order</a></li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane in active">
+                                <div class="menu-itam-holder">
+
+                                    <div>
+
+                                        <table class="table">
+                                            <tbody>
+
+                                                <tr>
+                                                    <td><img src="{{ food.image.url }}" width="40" alt="Food Image"></td>
+                                                    <td class=""><b>{{ food.food_title|truncatewords:1}}</b></td>
+
+                                                    <td>${{ food.price }}</td>
+                                                    <td>${{ food.vendor.shipping_cost}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                        <ul>
+                                            <li style="list-style-type: none;">
+
+                                                <span class="price float-right">
+                                                    <span class="currency">$</span>
+                                                    <span id="subtotal"></span>
+                                                </span>
+                                            </li>
+
+
+
+
+                                            <li style="list-style-type: none; font-weight: 600;">
+                                                TOTAL
+                                                <span class="price float-right">
+                                                    <span class="currency">$</span>
+                                                    <span id="total">{{ food.price|add:food.vendor.shipping_cost }}</span>
+                                                </span>
+                                            </li>
+
+
+                                            <div id="paypal-button-container"></div>
+                                            <form action="{% url 'order:place_order' food.id %}" method="post">
+                                                {% csrf_token %}
+                                                <div id="rzp_payment_button">
+                                                    <button class="btn btn-danger w-100 p-2" id="rzp-button1">PLACE ORDER</button>
+
+                                                </div>
+                                            </form>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main Section End -->
+
+
+
+
+{% endblock content %}
+

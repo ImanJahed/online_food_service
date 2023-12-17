@@ -1,11 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>{{ request.user.restaurant.name }}</h1>
-    <p>{{ request.user.roll }}</p>
-</body>
-</html>
+{% extends "_base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+		<!-- Main Section Start -->
+		<div class="main-section">
+{
+            {% include "includes/cover.html" %}
+            <div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+
+                        {% include "includes/res_sidbar.html" %}
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="row">
+											<div class="element-title has-border right-filters-row">
+												<h5>Recent Orders</h5>
+
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<div class="user-orders-list">
+												<div class="responsive-table">
+													<ul class="table-generic">
+														<li class="order-heading-titles">
+															<div>Order id</div>
+															<div>Date</div>
+															<div>Total Price</div>
+															<div>Charges</div>
+															<div>Received</div>
+															<div>Status</div>
+														</li>
+                                                        {% for transaction in transactions_filter %}
+														<li class="order-heading-titles">
+															<div><a href="{% url 'order:order_detail' transaction.order.pk %}" >{{ transaction.order.order_id }}</a></div>
+															<div>{{ transaction.created|date:'Y-m-d'}}</div>
+															<div>{{transaction.total_order}}</div>
+															<div>{{transaction.admin_share}}</div>
+															<div>{{transaction.restaurant_share}}</div>
+															<div><span class="order-status" style="background-color: #047a06;">{{ transaction.order.status }}</span></div>
+														</li>
+                                                        {% endfor %}
+
+													</ul>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Main Section End -->
+
+{% endblock content %}
+

@@ -1,0 +1,10 @@
+<div class="user-account-nav user-account-sidebar">
+    <div class="user-nav-list">
+        <ul>
+            <li class="{% if request.resolver_match.url_name == 'customer' %}active{% endif %}"><a href="{% url 'accounts:customer' %}"><i class="icon-dashboard3"></i>Dashboard</a></li>
+            <li class="{% if request.resolver_match.url_name == 'customer_order_detail' %}active{% endif %}"><a href=""><i class="icon-add_shopping_cart"></i>Order Detail</a></li>
+{#            <li class="{% if '/profile/' in request.path %}active{% endif %}"><a href=""><i class="icon-build"></i>Profile Settings</a></li>#}
+            <li><a class="logout-btn" href="{% url 'accounts:user_logout' %}"><i class="icon-log-out"></i>Signout</a></li>
+        </ul>
+    </div>
+</div>

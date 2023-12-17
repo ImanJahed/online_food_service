@@ -22,8 +22,11 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('pages.urls')),
+    path('restaurants/', include('restaurant.urls')),
+    path('order/', include('order.urls')),
 ]
 
 if settings.DEBUG:

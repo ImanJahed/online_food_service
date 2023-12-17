@@ -1,0 +1,11 @@
+<div class="user-account-nav user-account-sidebar">
+    <div class="user-nav-list">
+        <ul>
+            <li class="{% if request.resolver_match.url_name == 'admin_profile' %}active{% endif %}"><a href="{% url 'accounts:admin_profile' %}"><i class="icon-dashboard3"></i>Dashboard</a></li>
+            <li class="{% if request.resolver_match.url_name == 'add_customer' %}active{% endif %}"><a href="{% url 'accounts:add_customer' %}"><i class="icon-user"></i>Add Customer</a></li>
+            <li class="{% if request.resolver_match.url_name == 'add_restaurant' %}active{% endif %}"><a href="{% url 'accounts:add_restaurant' %}"><i class="icon-restaurant"></i>Add Restaurant</a></li>
+            <li class="{% if request.resolver_match.url_name == 'earn' %}active{% endif %}"><a href="{% url 'accounts:earn' %}"><i class="icon-office"></i>Earn</a></li>
+            <li><a class="logout-btn" href="{% url 'accounts:user_logout' %}"><i class="icon-log-out"></i>Signout</a></li>
+        </ul>
+    </div>
+</div>

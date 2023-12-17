@@ -1,7 +1,70 @@
-<h1>{{ request.user.username }}</h1>
-<p>{{ request.user.roll }}</p>
+{% extends "_base.html" %}
 
-<form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">logout</button>
-</form>
+{% load static %}
+
+
+{% block content %}
+		<!-- Main Section Start -->
+		<div class="main-section">
+
+            {% include "includes/cover.html" %}
+            <div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+
+                        {% include "includes/customer_sidbar.html" %}
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="row">
+											<div class="element-title has-border right-filters-row">
+												<h5>Recent Orders</h5>
+
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<div class="user-orders-list">
+												<div class="responsive-table">
+													<ul class="table-generic">
+														<li class="order-heading-titles">
+															<div>Order id</div>
+															<div>Date</div>
+															<div>Shipping</div>
+															<div>Price</div>
+															<div>Total Price</div>
+
+															<div>Status</div>
+														</li>
+                                                        {% for transaction in transactions_filter %}
+														<li class="order-heading-titles">
+															<div><a href="{% url 'order:customer_order_detail' transaction.order.pk %}" >{{ transaction.order.order_id }}</a></div>
+															<div>{{ transaction.created|date:'Y-m-d'}}</div>
+															<div>{{transaction.order.vendor.shipping_cost}}</div>
+															<div>{{transaction.order.food.price}}</div>
+															<div>{{transaction.total_order|add:transaction.order.vendor.shipping_cost}}</div>
+															<div><span class="order-status" style="background-color: #047a06;">{{ transaction.order.status }}</span></div>
+														</li>
+                                                        {% endfor %}
+
+													</ul>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Main Section End -->
+
+{% endblock content %}
+

@@ -24,16 +24,17 @@ class Customer(models.Model):
 
 class Restaurant(models.Model):
     RESTAURANT_TYPE = (
-        (1, 'Fast Food'),
-        (2, 'Traditional Food')
+        ('Fast Food', 'Fast Food'),
+        ('Traditional Food', 'Traditional Food')
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='restaurant')
     name = models.CharField(max_length=50)
-    restaurant_type = models.IntegerField(choices=RESTAURANT_TYPE)
-    start_time = models.DateTimeField()
-    finish_time = models.DateTimeField()
-    shipping_time = models.DateTimeField()
-    shipping_cost = models.PositiveIntegerField(null=True, blank=True)
+    restaurant_type = models.CharField(max_length=20, choices=RESTAURANT_TYPE)
+    start_time = models.TimeField()
+    finish_time = models.TimeField()
+    shipping_time = models.IntegerField()
+    shipping_cost = models.PositiveIntegerField(default=0, null=True, blank=True)
+    restaurant_cover = models.ImageField(upload_to='restaurant_img', null=True, blank=True)
 
     def __str__(self):
         return self.name

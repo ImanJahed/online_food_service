@@ -1,0 +1,81 @@
+
+
+
+{% extends "_base.html" %}
+{% load humanize %}
+
+
+{% block content %}
+    <!-- Main Section Start -->
+    <div class="main-section">
+        {% include 'includes/cover.html' %}
+        <div class="page-section account-header buyer-logged-in">
+            <div class="container">
+                <div class="row">
+
+                        <!-- Load the sidebar here -->
+                        {% include 'includes/res_sidbar.html' %}
+
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                        <div class="user-dashboard loader-holder">
+                            <div class="user-holder">
+                                <h5 class="text-uppercase">List of Your Food Menu</h5>
+                                <hr>
+                                <button class="btn btn-secondary" onclick="history.back()"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                                <br><br>
+                            <div class="tab-content">
+                                <div id="home" class="tab-pane in active">
+                                    <div class="menu-itam-holder">
+
+                                        <div id="menu-item-list-6272" class="menu-itam-list">
+
+
+                                            {% for food in foods %}
+                                                <div class="element-title" id="menu-category-2">
+                                                <h5 class="text-color">{{ food.food_title }}</h5>
+                                                <span>Garlic bread also garlic toast consists of bread usually a
+															baguette or
+															sour dough like a ciabatta</span>
+                                            </div>
+                                            <ul>
+                                                <li>
+                                                    <div class="image-holder"><a href="{{ food.image.url }}"><img
+                                                            src="{{ food.image.url }}" alt=""></a></div>
+                                                    <div class="text-holder">
+                                                        <h6>{{ food.food_title }}</h6>
+                                                        <span>{{ food.description }}</span>
+                                                        <span>Preparation Time: {{ food.preparation_time }} min</span>
+                                                    </div>
+                                                    <div class="price-holder">
+                                                        <span class="price">£{{ food.price|intcomma }}</span>
+                                                        <a href="{% url 'restaurant:edit_food' food.id %}" class="btn btn-warning">Edit</a>
+                                                        <span id="add-menu-loader-10"></span>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                            {% endfor %}
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Section End -->
+{% endblock content %}
+
+
+
+
+
+
+
+
+
