@@ -31,7 +31,7 @@
                                 <hr>
                                 <button class="btn btn-secondary" onclick="history.back()"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
                                 <br><br>
-                                <h6>Add New Food Item</h6>
+                                <h6>Add New Restaurant</h6>
                                 <form action="{% url 'accounts:add_restaurant' %}" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">

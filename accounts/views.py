@@ -75,17 +75,22 @@ class Register(View):
 
     def get(self, request):
         form = self.form_class()
-        return render(request, self.template_name, context={'form': form})
+        context = {
+            'form': form
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request):
         form = self.form_class(request.POST)
+
         if form.is_valid():
             cd = form.cleaned_data
-            form = form.save(commit=False)
-            form.roll = 1
-            form.save()
-            Customer.objects.create(user=form.user, address=cd['address'])
-            return redirect('login')
+            user = form.save(commit=False)
+            user.roll = 1
+            user.save()
+            Customer.objects.create(user=user, address=cd['address'])
+            messages.success(request, 'Customer Created')
+            return redirect('accounts:add_customer')
 
         return render(request, self.template_name, {'form': form})
 
@@ -96,20 +101,23 @@ class RestaurantRegister(View):
 
     def get(self, request):
         form = self.form_class()
-        return render(request, self.template_name, {'form': form})
+        context = {
+            'form': form
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
+
         if form.is_valid():
-            form = form.save(commit=False)
             cd = form.cleaned_data
-            user = User.objects.create_user(username=cd['name'], password=cd['password'])
-            user.roll = 2
-            # Restaurant.objects.create(user=user, name=cd['name'], restaurant_type=cd['type'], start_time=cd['start_time'], finish_time=cd['finish_time'],
-            #                           shipping_time=cd['shipping_time'])
+            form = form.save(commit=False)
+            user = User.objects.create_user(username=cd['username'], password=cd['password1'], roll=2)
+
             form.user = user
             form.save()
-            return redirect('login')
+            messages.success(request, 'Customer Created')
+            return redirect('accounts:add_restaurant')
 
         return render(request, self.template_name, {'form': form})
 
@@ -222,3 +230,5 @@ class CompanyEarnView(LoginRequiredMixin, View):
             self.context['revenue_shipping'] = revenue_shipping
 
         return render(request, self.template_name, self.context)
+
+

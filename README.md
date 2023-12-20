@@ -40,6 +40,10 @@
 
 `python manage.py migrate`
 
-4- اجرا پروژه
+4- ساخت ادمین
 
-`python manage.py runserver`
+`python manage.py createsuperuser`
+
+5-اجرای پروژه
+
+_`python manage.py runserver`_
